@@ -5,27 +5,17 @@ class Solution(object):
         :rtype: bool
         """
         stack = []
-        close_brackets = [")", "]", "}"]
         bracket_dict = {
-            ")": {"inverse": "("},
-            "]": {"inverse": "["},
-            "}": {"inverse": "{"},
-            "(": {"inverse": ")"},
-            "[": {"inverse": "]"},
-            "{": {"inverse": "}"}
+            ")": "(",
+            "]": "[",
+            "}": "{"
         }
-
-        for char in s:
-            stack.append(char)
-            previous_char, char_count = "", 0
-            while len(stack) >= 1 and char in close_brackets:
-                popped = stack.pop()
-                char_count += 1
-                if popped == bracket_dict.get(char)['inverse']:
-                    break
-                elif previous_char and popped != bracket_dict.get(previous_char)['inverse']:
+        for bracket in s:
+            if not bracket_dict.get(bracket):
+                stack.append(bracket)
+            else:
+                open_bracket = bracket_dict.get(bracket)
+                elem = stack.pop() if stack else None
+                if not elem or elem != open_bracket:
                     return False
-                previous_char = popped
-            if char_count % 2 != 0:
-                return False
-        return not stack
+        return True if not stack else False

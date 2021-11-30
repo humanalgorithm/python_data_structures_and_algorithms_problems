@@ -24,3 +24,4 @@ class Solution(object):
                 i += 1
             j = i + 1 if j == i else j
         return intervals
+

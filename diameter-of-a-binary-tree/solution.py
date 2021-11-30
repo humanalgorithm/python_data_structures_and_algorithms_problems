@@ -23,10 +23,10 @@ class Solution(object):
             left, right = 0, 0
             node = stack.pop()
             if node.right:
-                left = self.getDepth(node.right)
+                right = self.getDepth(node.right)
                 stack.append(node.right)
             if node.left:
-                right = self.getDepth(node.left)
+                left = self.getDepth(node.left)
                 stack.append(node.left)
             max_distance = max(max_distance, left + right)
             count += 1

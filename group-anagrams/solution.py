@@ -13,3 +13,4 @@ class Solution(object):
             words[word_sorted].append(word)
 
         return [value for key, value in words.iteritems()]
+ 

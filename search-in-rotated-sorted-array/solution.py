@@ -1,21 +1,31 @@
 class Solution(object):
     def search(self, nums, target):
-        n = len(nums)
-        l = 0
-        r = n - 1
+        left = 0
+        right = len(nums) - 1
 
-        while l < r:
-            if nums[l] == target:
-                return l
-            if nums[r] == target:
-                return r
-            mid = (l + r) / 2
-            if nums[mid] == target:
-                return mid
+        while left < right:
+            middle = left + (right - left) / 2
+            if nums[middle] > nums[right]:
+                left = middle + 1
+            elif nums[middle] < nums[right]:
+                right = middle
+
+        pivot = left
+        left = 0
+        right = len(nums) - 1
+        if nums[pivot] <= target <= nums[right]:
+            left = pivot
+        else:
+            right = pivot
+
+        while left <= right:
+            middle = left + (right - left) / 2
+            if nums[middle] == target:
+                return middle
+            if left == right:
+                break
+            elif nums[middle] < target:
+                left = middle + 1
             else:
-                if nums[mid] < target:
-                    l = mid + 1
-                else:
-                    l += 1
-                    r -= 1
+                right = middle - 1
         return -1
